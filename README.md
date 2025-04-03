@@ -76,21 +76,38 @@ python analytics.py
 ---
 
 ## 🌐 API (`api.py`)
-Runs a FastAPI server with three endpoints:
+Runs a FastAPI server with multiple endpoints:
 
-### 1️⃣ Ask a Question (FAISS Search)
-- **URL:** `http://127.0.0.1:8000/ask?query=What is the revenue trend?`
-- **Response:** Retrieves the most relevant data match.
+### 1️⃣ Ask a Question (RAG-powered Search)
+- **Endpoint:** `POST /ask`
+- **Request:**  
+  ```json
+  { "question": "What was the total revenue in July 2017?" }
+  ```
+- **Response:**  
+  ```json
+  { "response": "Total revenue in July 2017 was 12345.67" }
+  ```
 
-### 2️⃣ Analytics Data (JSON Format)
-- **URL:** `http://127.0.0.1:8000/analytics`
+### 2️⃣ Get Analytics Data (JSON Format)
+- **Endpoint:** `GET /analytics`
 - **Response:** Returns monthly revenue insights in JSON format.
 
 ### 3️⃣ Revenue Trends Visualization (Image)
-- **URL:** `http://127.0.0.1:8000/analytics/plot`
+- **Endpoint:** `GET /analytics/plot`
 - **Response:** Returns the revenue trends **PNG plot**.
 
-Run the API server:  
+Run the API server:
+
 ```bash
 uvicorn api:app --host 127.0.0.1 --port 8000
 ```
+
+---
+
+## 🚀 Additional Features  
+✅ **Retrieval-Augmented Generation (RAG):** Uses FAISS and an **open-source LLM** for question-answering.  
+✅ **FAISS for Efficient Search:** Hotel booking records are indexed and searchable via vector embeddings.  
+✅ **Precomputed Analytics:** Revenue trends and other insights are **cached for faster responses**.  
+✅ **Real-time Plot Generation:** Revenue trends are visualized dynamically with **Seaborn & Matplotlib**.  
+
