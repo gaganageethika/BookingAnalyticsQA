@@ -1,6 +1,6 @@
 # Booking Analytics Q&A System
 
-## Author: John  
+## Author: Gaganageethika Seerlancha 
 ## Project: Solvei8 AI/ML Internship Assignment  
 
 ## 📌 Description  
