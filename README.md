@@ -127,7 +127,7 @@ This ensures that even unseen natural language questions get a meaningful answer
 ### 3️⃣ Revenue Trends Visualization (Image)
 - **Endpoint:** `GET /analytics/plot`
 - **Response:** Returns the revenue trends **PNG plot**.
- ![Revenue Trend Plot](data/revenue_trend.png)
+ ![Revenue Trend Plot](data/revenue_trends.png)
 
 Run the API server:
 
