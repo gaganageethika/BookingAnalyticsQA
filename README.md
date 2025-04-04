@@ -4,7 +4,7 @@
 ## Project: Solvei8 AI/ML Internship Assignment  
 
 ## 📌 Description  
-This project builds a **Booking Analytics Q&A System** that processes hotel booking data, creates a FAISS-based similarity search, generates revenue insights, and serves an API for querying data.
+This project builds a **Booking Analytics Q&A System** that processes hotel booking data, implements rule-based logic + FAISS-based similarity search, uses a lightweight LLM fallback, generates revenue insights, and serves an API for querying data.
 
 ---
 
@@ -79,6 +79,8 @@ python analytics.py
 Runs a FastAPI server with multiple endpoints:
 
 ### 1️⃣ Ask a Question (RAG-powered Search)
+- Uses rule-based logic to answer known query patterns (e.g., revenue, cancellations, average price).
+- Falls back to FAISS + LLM (Flan-T5-Small) if no match is found.
 - **Endpoint:** `POST /ask`
 - **Request:**  
   ```json
@@ -87,6 +89,35 @@ Runs a FastAPI server with multiple endpoints:
 - **Response:**  
   ```json
   { "response": "Total revenue in July 2017 was 12345.67" }
+  ```
+## How Hybrid Question Answering Works
+The `/ask endpoint` uses a hybrid approach:
+
+- **✅ Rule-based Matching:**
+For structured queries like:
+
+  `"Total revenue for July 2017"`
+
+  `"Top locations with cancellations"`
+
+  `"Average price of a booking"`
+  ...it responds immediately using precomputed insights or logic.
+
+- **🔄 Fallback to FAISS + LLM:**
+If the question doesn't match any known pattern:
+    - Encodes the query with SentenceTransformers
+    - Searches the FAISS index for the closest booking record
+    - Uses Flan-T5-Small to generate a response based on that record
+
+This ensures that even unseen natural language questions get a meaningful answer without overloading the LLM for every query.
+
+**🧪 Sample Questions to Try**
+ ```json
+  { "question": "What was the total revenue in July 2017?" }
+  { "question": "What was the total revenue for July 2017?" }
+  { "question": "Which countries had the highest cancellations?" }
+  { "question": "What's the average ADR?" }
+  { "question": "How many rooms were booked last year?" }  ← Triggers LLM fallback
   ```
 
 ### 2️⃣ Get Analytics Data (JSON Format)
@@ -102,12 +133,39 @@ Run the API server:
 ```bash
 uvicorn api:app --host 127.0.0.1 --port 8000
 ```
+--- 
+### **🧪 API Testing with Swagger UI**
+FastAPI provides a built-in interactive API documentation using Swagger UI. You can test your endpoints directly in your browser:
+
+**📍 Steps:**
+1. Run the server:
+```bash
+uvicorn api:app --host 127.0.0.1 --port 8000
+```
+2. Open your browser and navigate to:
+```arduino
+http://127.0.0.1:8000/docs
+```
+3. From there, you can:
+  - Click on /ask, click "Try it out", and enter a question like:
+  ```json
+  {
+    "question": "Which countries had the highest cancellations?"
+  }
+  ```
+  - Use /analytics to view precomputed insights in JSON.
+  - Use /analytics/plot to visualize revenue trends.
+
+This makes it super convenient to explore and debug the API without needing any external tools like Postman or cURL.
 
 ---
 
 ## 🚀 Additional Features  
-✅ **Retrieval-Augmented Generation (RAG):** Uses FAISS and an **open-source LLM** for question-answering.  
-✅ **FAISS for Efficient Search:** Hotel booking records are indexed and searchable via vector embeddings.  
-✅ **Precomputed Analytics:** Revenue trends and other insights are **cached for faster responses**.  
-✅ **Real-time Plot Generation:** Revenue trends are visualized dynamically with **Seaborn & Matplotlib**.  
+- ✅  **Pattern-matching** + **LLM** fallback (Hybrid Q&A system)
+- ✅  **Retrieval-Augmented Generation** (RAG) using FAISS
+- ✅  Insightful visualizations with **Matplotlib & Seaborn**
+- ✅  **FastAPI + Swagger UI** for easy testing and documentation
+- ✅  **Modular** structure and clean design for easy extensibility
+
+  
 
