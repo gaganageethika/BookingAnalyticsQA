@@ -11,13 +11,6 @@ df['arrival_date'] = pd.to_datetime(df['reservation_status_date'])
 monthly_revenue = df.groupby(df['arrival_date'].dt.strftime("%Y-%m"))['adr'].sum().to_dict()
 
 
-#plt.figure(figsize=(10,5))
-#sns.lineplot(x=monthly_revenue.index.astype(str), y=monthly_revenue.values)
-#plt.xticks(rotation=45)
-#plt.title("Monthly Revenue Trends")
-#plt.savefig("data/revenue_trends.png")
-#plt.show()
-
 insights = {
     "revenue_trend": monthly_revenue
 }
