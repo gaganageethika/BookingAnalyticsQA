@@ -127,6 +127,7 @@ This ensures that even unseen natural language questions get a meaningful answer
 ### 3️⃣ Revenue Trends Visualization (Image)
 - **Endpoint:** `GET /analytics/plot`
 - **Response:** Returns the revenue trends **PNG plot**.
+ ![Revenue Trend Plot](data/revenue_trend.png)
 
 Run the API server:
 
@@ -159,6 +160,16 @@ http://127.0.0.1:8000/docs
 This makes it super convenient to explore and debug the API without needing any external tools like Postman or cURL.
 
 ---
+
+## 🖼️ API Testing — Example Screenshots
+
+### 🔹 Swagger UI Interface (`/docs`)
+![Swagger UI](screenshots/swagger_ui.png)
+
+---
+
+### 🔹 Example: Asking a Question (`/ask`)
+![Asking a Question](screenshots/asking_question.png)
 
 ## 🚀 Additional Features  
 - ✅  **Pattern-matching** + **LLM** fallback (Hybrid Q&A system)
