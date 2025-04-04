@@ -19,6 +19,10 @@ This project builds a **Booking Analytics Q&A System** that processes hotel book
 │   ├── revenue_trends.png          # Revenue trends visualization
 │── 📁 notebooks
 │   ├── datapreprocessing.ipynb     # Data cleaning and preprocessing
+│── 📁 screenshots
+│   ├── analytics_endpoint.png      
+│   ├── swagger_ui.png              
+│   ├── asking_question.png         
 │── vector_store.py                 # FAISS vector storage creation
 │── analytics.py                     # Revenue trend analysis
 │── api.py                           # FastAPI server for Q&A & analytics
